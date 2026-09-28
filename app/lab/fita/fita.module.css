@@ -25,14 +25,12 @@
   overflow: visible;
 }
 
-.page :global(.fita-svg-mobile) {
-  display: none;
+.page :global(.fita-path) {
+  stroke-width: 190;
 }
 
-.page :global(.fita-ribbon) {
-  display: block;
-  height: 100%;
-  width: 100%;
+.page :global(.fita-path-mobile) {
+  display: none;
 }
 
 .page :global(.fita-section) {
@@ -101,12 +99,16 @@
 }
 
 @media (max-width: 700px) {
-  .page :global(.fita-svg-desktop) {
+  .page :global(.fita-path-desktop) {
     display: none;
   }
 
-  .page :global(.fita-svg-mobile) {
+  .page :global(.fita-path-mobile) {
     display: block;
+  }
+
+  .page :global(.fita-path) {
+    stroke-width: 105;
   }
 
   .page :global(.fita-section) {
@@ -132,7 +134,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page :global(.fita-ribbon) {
+  .page :global(.fita-path) {
     transition: none;
   }
 }
