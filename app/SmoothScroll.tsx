@@ -9,9 +9,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const coarsePointer = window.matchMedia("(pointer: coarse)");
-    if (reducedMotion.matches || coarsePointer.matches) return;
+    if (coarsePointer.matches) return;
 
     const lenis = new Lenis({
       autoRaf: false,
@@ -20,6 +19,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       syncTouch: false,
       wheelMultiplier: 0.72,
       anchors: true,
+      respectReducedMotion: false,
     });
 
     const updateScrollTrigger = () => ScrollTrigger.update();
@@ -27,6 +27,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     lenis.on("scroll", updateScrollTrigger);
     gsap.ticker.add(updateLenis);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
       gsap.ticker.remove(updateLenis);
