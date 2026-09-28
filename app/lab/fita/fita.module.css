@@ -1,0 +1,140 @@
+.page {
+  min-height: 100vh;
+  background: #080407;
+  color: #f4e8e9;
+}
+
+.page :global(.fita-stage) {
+  position: relative;
+  height: 300svh;
+  min-height: 300svh;
+  overflow: hidden;
+}
+
+.page :global(.fita-art) {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+}
+
+.page :global(.fita-svg) {
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: visible;
+}
+
+.page :global(.fita-path) {
+  stroke-width: 190;
+}
+
+.page :global(.fita-path-mobile) {
+  display: none;
+}
+
+.page :global(.fita-section) {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: 100svh;
+  min-height: 100svh;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.5rem, 7vw, 7rem);
+  pointer-events: none;
+}
+
+.page :global(.fita-section-first) {
+  justify-content: space-between;
+  padding-top: clamp(2rem, 8vw, 8rem);
+  padding-bottom: 16vh;
+}
+
+.page :global(.fita-section-middle) {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.page :global(.fita-section-last) {
+  justify-content: flex-end;
+  padding-bottom: clamp(3rem, 11vw, 10rem);
+}
+
+.page :global(.fita-kicker),
+.page :global(.fita-index) {
+  margin: 0;
+  color: rgba(244, 232, 233, 0.62);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.page :global(.fita-section h1),
+.page :global(.fita-section h2) {
+  max-width: 38rem;
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  line-height: 0.88;
+}
+
+.page :global(.fita-section h1) {
+  margin-top: auto;
+  font-size: clamp(7rem, 22vw, 20rem);
+}
+
+.page :global(.fita-section h2) {
+  margin-top: 1rem;
+  font-size: clamp(2.5rem, 7vw, 7rem);
+}
+
+.page :global(.fita-copy) {
+  max-width: 18rem;
+  margin: 1.5rem 0 0;
+  color: rgba(244, 232, 233, 0.82);
+  font-size: clamp(1rem, 1.7vw, 1.25rem);
+  line-height: 1.4;
+}
+
+@media (max-width: 700px) {
+  .page :global(.fita-path-desktop) {
+    display: none;
+  }
+
+  .page :global(.fita-path-mobile) {
+    display: block;
+  }
+
+  .page :global(.fita-path) {
+    stroke-width: 105;
+  }
+
+  .page :global(.fita-section) {
+    padding: 1.25rem;
+  }
+
+  .page :global(.fita-section-first) {
+    padding-bottom: 12vh;
+  }
+
+  .page :global(.fita-section-middle) {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .page :global(.fita-section h1) {
+    font-size: clamp(6rem, 28vw, 10rem);
+  }
+
+  .page :global(.fita-section h2) {
+    font-size: clamp(2.75rem, 14vw, 5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page :global(.fita-path) {
+    transition: none;
+  }
+}
