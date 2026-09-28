@@ -8,6 +8,8 @@ import { useEffect, useRef, useState } from "react";
 gsap.registerPlugin(ScrollTrigger);
 
 const crimson = "#9d1239";
+const foldShadow = "#560a24";
+const foldLight = "#d12852";
 
 export default function FitaScroll() {
   const stage = useRef<HTMLDivElement>(null);
@@ -42,7 +44,7 @@ export default function FitaScroll() {
       if (!stage.current) return;
 
       const endDistance = () =>
-        `+=${Math.max(stage.current!.offsetHeight - window.innerHeight, 1)}`;
+        `+=${Math.max(window.innerHeight, 1)}`;
 
       if (reducedMotion) {
         ScrollTrigger.create({
@@ -91,20 +93,20 @@ export default function FitaScroll() {
       <div className="fita-art" aria-hidden="true">
         <svg
           className="fita-svg fita-svg-desktop"
-          viewBox="0 0 1440 3000"
+          viewBox="0 0 1440 1000"
           preserveAspectRatio="none"
           role="presentation"
         >
           <defs>
-            <mask id="fita-reveal-desktop" maskUnits="userSpaceOnUse" x="0" y="0" width="1440" height="3000">
-              <rect width="1440" height="3000" fill="black" />
+            <mask id="fita-reveal-desktop" maskUnits="userSpaceOnUse" x="0" y="0" width="1440" height="1000">
+              <rect width="1440" height="1000" fill="black" />
               <path
                 ref={desktopPath}
                 className="fita-reveal-path"
-                d="M -180 420 C 180 110 490 850 820 610 C 1110 400 1120 1090 1570 860 C 1870 710 1580 1520 1160 1760 C 760 1985 540 1530 160 2000 C -100 2350 300 2750 860 2530 C 1170 2405 1260 2820 1630 2940"
+                d="M 70 370 C 250 120 450 120 610 320 C 760 500 880 650 1030 560 C 1170 485 1290 520 1410 700"
                 fill="none"
                 stroke="white"
-                strokeWidth="360"
+                strokeWidth="250"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeDasharray="1"
@@ -114,28 +116,43 @@ export default function FitaScroll() {
           </defs>
           <path
             className="fita-ribbon"
-            d="M -180 330 C 40 170 260 150 430 300 C 610 455 700 680 830 665 C 980 650 1040 450 1190 510 C 1330 565 1360 790 1540 850 C 1640 885 1700 930 1625 1020 C 1450 1220 1260 965 1090 930 C 930 895 870 1120 735 1320 C 610 1505 425 1660 200 1780 C 50 1860 -30 2010 95 2160 C 230 2325 455 2295 680 2240 C 920 2185 1100 2385 1290 2580 C 1425 2720 1535 2850 1660 2860 L 1610 3025 C 1460 3005 1300 2890 1160 2760 C 1000 2610 870 2420 660 2410 C 430 2400 190 2490 45 2320 C -115 2130 -45 1900 130 1790 C 330 1665 495 1515 610 1340 C 760 1110 850 810 1000 790 C 1125 770 1220 1000 1380 905 C 1490 840 1450 690 1290 670 C 1160 650 1070 815 880 815 C 680 815 565 575 370 425 C 210 300 40 350 -130 500 Z"
+            d="M 70 295 C 230 80 430 80 590 265 C 755 455 875 585 1030 495 C 1185 405 1305 460 1410 660 C 1310 585 1200 555 1065 640 C 875 760 710 600 545 400 C 400 225 260 250 70 455 Z"
             fill={crimson}
+            mask="url(#fita-reveal-desktop)"
+          />
+          <path
+            className="fita-fold-shadow"
+            d="M 575 300 C 730 480 865 615 1035 535 C 1145 485 1245 500 1340 580 C 1240 545 1150 565 1060 625 C 885 745 735 600 575 405 Z"
+            fill={foldShadow}
+            mask="url(#fita-reveal-desktop)"
+          />
+          <path
+            className="fita-fold-light"
+            d="M 180 210 C 315 100 430 125 535 250 C 570 292 598 325 630 355"
+            fill="none"
+            stroke={foldLight}
+            strokeWidth="18"
+            strokeLinecap="round"
             mask="url(#fita-reveal-desktop)"
           />
         </svg>
 
         <svg
           className="fita-svg fita-svg-mobile"
-          viewBox="0 0 900 3000"
+          viewBox="0 0 900 1000"
           preserveAspectRatio="none"
           role="presentation"
         >
           <defs>
-            <mask id="fita-reveal-mobile" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="3000">
-              <rect width="900" height="3000" fill="black" />
+            <mask id="fita-reveal-mobile" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="1000">
+              <rect width="900" height="1000" fill="black" />
               <path
                 ref={mobilePath}
                 className="fita-reveal-path"
-                d="M -110 340 C 250 120 420 650 270 920 C 100 1220 610 1300 470 1600 C 330 1900 690 1980 560 2260 C 455 2490 820 2700 520 3100"
+                d="M 55 350 C 240 120 420 160 475 345 C 530 535 330 590 420 735 C 495 850 630 780 840 900"
                 fill="none"
                 stroke="white"
-                strokeWidth="230"
+                strokeWidth="180"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeDasharray="1"
@@ -145,8 +162,23 @@ export default function FitaScroll() {
           </defs>
           <path
             className="fita-ribbon"
-            d="M -110 250 C 80 160 260 200 350 380 C 430 540 390 700 280 920 C 160 1160 520 1280 520 1480 C 520 1660 350 1790 470 1930 C 600 2080 680 2130 600 2300 C 520 2470 650 2600 820 2730 L 720 3090 C 580 2930 390 2780 420 2610 C 450 2450 350 2350 280 2220 C 190 2050 350 1900 360 1760 C 370 1600 80 1510 180 1300 C 270 1110 200 1050 120 920 C 20 750 120 560 -110 430 Z"
+            d="M 55 290 C 220 80 385 120 435 325 C 480 505 275 595 390 755 C 475 875 620 800 845 845 L 840 955 C 600 940 420 970 315 825 C 190 655 390 520 330 350 C 285 225 185 245 55 415 Z"
             fill={crimson}
+            mask="url(#fita-reveal-mobile)"
+          />
+          <path
+            className="fita-fold-shadow"
+            d="M 355 300 C 440 485 320 590 415 735 C 475 825 590 805 700 850 C 575 820 480 875 400 790 C 300 680 430 545 370 400 Z"
+            fill={foldShadow}
+            mask="url(#fita-reveal-mobile)"
+          />
+          <path
+            className="fita-fold-light"
+            d="M 140 205 C 250 125 335 165 375 270"
+            fill="none"
+            stroke={foldLight}
+            strokeWidth="14"
+            strokeLinecap="round"
             mask="url(#fita-reveal-mobile)"
           />
         </svg>
