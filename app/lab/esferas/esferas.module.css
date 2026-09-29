@@ -1,0 +1,42 @@
+.stage {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #f2dfd1;
+}
+
+.canvasLayer {
+  position: absolute;
+  inset: 0;
+}
+
+.canvas,
+.fallback {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.fallback {
+  background: #f2dfd1;
+}
+
+.label {
+  position: absolute;
+  top: clamp(1.25rem, 4vw, 3rem);
+  left: clamp(1.25rem, 4vw, 3rem);
+  margin: 0;
+  color: rgba(59, 50, 47, 0.7);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+@media (max-width: 700px) {
+  .label {
+    top: 1.25rem;
+    left: 1.25rem;
+  }
+}
