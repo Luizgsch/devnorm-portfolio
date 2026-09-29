@@ -40,6 +40,28 @@ function RoundedBlock({
   );
 }
 
+function RoundedOval({
+  position,
+  scale,
+  rotation,
+  color,
+  roughness,
+}: {
+  position: [number, number, number];
+  scale: [number, number, number];
+  rotation: [number, number, number];
+  color: string;
+  roughness: number;
+}) {
+  const geometry = useMemo(() => new RoundedBoxGeometry(2, 1, 1, 8, 0.45), []);
+
+  return (
+    <mesh position={position} scale={scale} rotation={rotation} castShadow geometry={geometry}>
+      <meshStandardMaterial color={color} roughness={roughness} metalness={0.02} />
+    </mesh>
+  );
+}
+
 function AccentGeometry({ isNarrow }: { isNarrow: boolean }) {
   return (
     <>
@@ -52,15 +74,13 @@ function AccentGeometry({ isNarrow }: { isNarrow: boolean }) {
         <meshStandardMaterial color="#e7d8cf" roughness={0.82} metalness={0.01} />
       </mesh>
 
-      <mesh
+      <RoundedOval
         position={isNarrow ? [0.7, 0.34, 0.72] : [1.28, 0.42, 0.7]}
-        rotation={[0.2, -0.35, 0.7]}
         scale={isNarrow ? [0.16, 0.34, 0.16] : [0.2, 0.42, 0.2]}
-        castShadow
-      >
-        <sphereGeometry args={[1, 48, 48]} />
-        <meshStandardMaterial color="#edc1ab" roughness={0.72} metalness={0.02} />
-      </mesh>
+        rotation={[0.2, -0.35, 0.7]}
+        color="#edc1ab"
+        roughness={0.72}
+      />
 
       <mesh
         position={isNarrow ? [-0.74, -1.38, -0.18] : [-1.55, -1.45, -0.3]}
@@ -84,9 +104,9 @@ function SceneObjects() {
       {isNarrow ? (
         <>
           <Sphere position={[-1.05, 1.25, -0.7]} scale={[0.56, 0.56, 0.56]} color="#f5e8dc" roughness={0.8} />
-          <Sphere
+          <RoundedOval
             position={[-0.38, 0.42, 0.12]}
-            scale={[0.53, 0.34, 0.34]}
+            scale={[0.53, 0.57, 0.57]}
             rotation={[0, 0, -0.3]}
             color="#e9e3df"
             roughness={0.74}
@@ -98,9 +118,9 @@ function SceneObjects() {
       ) : (
         <>
           <Sphere position={[-3.45, 0.72, -0.72]} scale={[0.94, 0.94, 0.94]} color="#f5e8dc" roughness={0.8} />
-          <Sphere
+          <RoundedOval
             position={[-1.62, 0.35, 0.08]}
-            scale={[0.86, 0.48, 0.48]}
+            scale={[0.86, 0.8, 0.8]}
             rotation={[0, 0, -0.3]}
             color="#e9e3df"
             roughness={0.74}
