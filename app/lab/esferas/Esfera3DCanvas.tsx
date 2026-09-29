@@ -40,6 +40,41 @@ function RoundedBlock({
   );
 }
 
+function AccentGeometry({ isNarrow }: { isNarrow: boolean }) {
+  return (
+    <>
+      <mesh
+        position={isNarrow ? [0.14, 1.62, -0.28] : [0.2, 1.62, -0.25]}
+        rotation={[0.35, 0.15, -0.55]}
+        castShadow
+      >
+        <torusGeometry args={[0.3, 0.065, 16, 48]} />
+        <meshStandardMaterial color="#e7d8cf" roughness={0.82} metalness={0.01} />
+      </mesh>
+
+      <mesh
+        position={isNarrow ? [0.7, 0.34, 0.72] : [1.28, 0.42, 0.7]}
+        rotation={[0.2, -0.35, 0.7]}
+        scale={isNarrow ? [0.16, 0.34, 0.16] : [0.2, 0.42, 0.2]}
+        castShadow
+      >
+        <sphereGeometry args={[1, 48, 48]} />
+        <meshStandardMaterial color="#edc1ab" roughness={0.72} metalness={0.02} />
+      </mesh>
+
+      <mesh
+        position={isNarrow ? [-0.74, -1.38, -0.18] : [-1.55, -1.45, -0.3]}
+        rotation={[0.12, -0.2, 0.08]}
+        scale={isNarrow ? [0.5, 0.5, 0.18] : [0.8, 0.8, 0.18]}
+        castShadow
+      >
+        <cylinderGeometry args={[0.42, 0.42, 0.35, 64]} />
+        <meshStandardMaterial color="#d8d7d4" roughness={0.86} metalness={0.01} />
+      </mesh>
+    </>
+  );
+}
+
 function SceneObjects() {
   const { viewport } = useThree();
   const isNarrow = viewport.width < 4;
@@ -75,6 +110,7 @@ function SceneObjects() {
           <Sphere position={[2.28, -1.16, 0.58]} scale={[0.38, 0.38, 0.38]} color="#eccab8" roughness={0.77} />
         </>
       )}
+      <AccentGeometry isNarrow={isNarrow} />
     </>
   );
 }
