@@ -85,6 +85,90 @@ function sampleRibbon(path: SVGPathElement, progress: number): ScreenPoint[] {
   return points;
 }
 
+type SceneObjectEntry = {
+  ref: MutableRefObject<THREE.Group | null>;
+  base: [number, number, number];
+  radius: number;
+  escape: [number, number];
+};
+
+type RibbonRegion = {
+  path: SVGPathElement;
+  width: number;
+  points: ScreenPoint[];
+};
+
+type PositionPlan = {
+  ref: MutableRefObject<THREE.Group | null>;
+  base: THREE.Vector3;
+  safe: THREE.Vector3;
+  start: number;
+  settle: number;
+};
+
+function distanceToPath(point: ScreenPoint, points: ScreenPoint[]) {
+  let nearest = Number.POSITIVE_INFINITY;
+
+  for (let index = 1; index < points.length; index += 1) {
+    nearest = Math.min(nearest, closestPointOnSegment(point, points[index - 1], points[index]).distance);
+  }
+
+  return nearest;
+}
+
+function collisionInterval(point: ScreenPoint, requiredDistance: number, points: ScreenPoint[]) {
+  let start = 1;
+  let end = 0;
+  const segmentCount = points.length - 1;
+
+  for (let index = 1; index < points.length; index += 1) {
+    if (closestPointOnSegment(point, points[index - 1], points[index]).distance <= requiredDistance) {
+      start = Math.min(start, (index - 1) / segmentCount);
+      end = Math.max(end, index / segmentCount);
+    }
+  }
+
+  return end > 0 ? { start, end } : null;
+}
+
+function smoothstep(amount: number) {
+  const clamped = Math.max(0, Math.min(1, amount));
+  return clamped * clamped * (3 - 2 * clamped);
+}
+
+function findSafeScreenPosition(
+  base: ScreenPoint,
+  objectRadius: number,
+  regions: RibbonRegion[],
+  escape: [number, number],
+  margin: number,
+) {
+  const preferredAngle = Math.atan2(escape[1], escape[0]);
+  const angles = [0, 0.5, -0.5, 1, -1, 1.5, -1.5, Math.PI];
+  const distances = [1, 1.25, 1.6, 2.1, 2.8, 3.6];
+
+  for (const distance of distances) {
+    for (const angleOffset of angles) {
+      const angle = preferredAngle + angleOffset;
+      const candidate = {
+        x: base.x + Math.cos(angle) * objectRadius * distance,
+        y: base.y + Math.sin(angle) * objectRadius * distance,
+      };
+      const clear = regions.every(({ points, width }) => {
+        const ribbonHalfWidth = (width * Math.max(window.innerWidth / viewBox.width, window.innerHeight / viewBox.height)) / 2;
+        return distanceToPath(candidate, points) > objectRadius + ribbonHalfWidth + margin;
+      });
+
+      if (clear) return candidate;
+    }
+  }
+
+  return {
+    x: base.x + Math.cos(preferredAngle) * objectRadius * 4.5,
+    y: base.y + Math.sin(preferredAngle) * objectRadius * 4.5,
+  };
+}
+
 type SphereProps = {
   position: [number, number, number];
   scale: [number, number, number];
@@ -199,127 +283,78 @@ function SceneObjects({ scrollProgress, ribbonPaths }: SceneObjectsProps) {
   const ring = useRef<THREE.Group>(null);
   const accentOval = useRef<THREE.Group>(null);
   const disc = useRef<THREE.Group>(null);
-  const sideMemory = useRef(new Map<THREE.Group, Map<SVGPathElement, number>>());
+  const plans = useRef<PositionPlan[]>([]);
 
-  useFrame(() => {
-    const objects = [
-      {
-        ref: leftSphere,
-        base: isNarrow ? [-1.05, 1.25, -0.7] : [-3.45, 0.72, -0.72],
-        radius: isNarrow ? 0.6 : 0.98,
-      },
-      {
-        ref: oval,
-        base: isNarrow ? [-0.38, 0.42, 0.12] : [-1.62, 0.35, 0.08],
-        radius: isNarrow ? 0.5 : 0.9,
-      },
-      {
-        ref: foregroundSphere,
-        base: isNarrow ? [0.12, -0.78, 0.95] : [0.28, -0.72, 0.95],
-        radius: isNarrow ? 0.62 : 0.88,
-      },
-      {
-        ref: block,
-        base: isNarrow ? [0.82, 1.22, -0.16] : [2.48, 1.08, -0.14],
-        radius: isNarrow ? 0.44 : 0.72,
-      },
-      {
-        ref: smallSphere,
-        base: isNarrow ? [0.78, -1.15, 0.55] : [2.28, -1.16, 0.58],
-        radius: isNarrow ? 0.28 : 0.42,
-      },
-      {
-        ref: ring,
-        base: isNarrow ? [0.14, 1.62, -0.28] : [0.2, 1.62, -0.25],
-        radius: isNarrow ? 0.3 : 0.38,
-      },
-      {
-        ref: accentOval,
-        base: isNarrow ? [0.7, 0.34, 0.72] : [1.28, 0.42, 0.7],
-        radius: isNarrow ? 0.3 : 0.42,
-      },
-      {
-        ref: disc,
-        base: isNarrow ? [-0.74, -1.38, -0.18] : [-1.55, -1.45, -0.3],
-        radius: isNarrow ? 0.24 : 0.42,
-      },
-    ] as const;
+  const objects = useMemo<SceneObjectEntry[]>(
+    () => [
+      { ref: leftSphere, base: isNarrow ? [-1.05, 1.25, -0.7] : [-3.45, 0.72, -0.72], radius: isNarrow ? 0.6 : 0.98, escape: [0, -1] },
+      { ref: oval, base: isNarrow ? [-0.38, 0.42, 0.12] : [-1.62, 0.35, 0.08], radius: isNarrow ? 0.5 : 0.9, escape: [0, -1] },
+      { ref: foregroundSphere, base: isNarrow ? [0.12, -0.78, 0.95] : [0.28, -0.72, 0.95], radius: isNarrow ? 0.62 : 0.88, escape: [0, 1] },
+      { ref: block, base: isNarrow ? [0.82, 1.22, -0.16] : [2.48, 1.08, -0.14], radius: isNarrow ? 0.44 : 0.72, escape: [1, 0] },
+      { ref: smallSphere, base: isNarrow ? [0.78, -1.15, 0.55] : [2.28, -1.16, 0.58], radius: isNarrow ? 0.28 : 0.42, escape: [1, 0] },
+      { ref: ring, base: isNarrow ? [0.14, 1.62, -0.28] : [0.2, 1.62, -0.25], radius: isNarrow ? 0.3 : 0.38, escape: [0, -1] },
+      { ref: accentOval, base: isNarrow ? [0.7, 0.34, 0.72] : [1.28, 0.42, 0.7], radius: isNarrow ? 0.3 : 0.42, escape: [1, 0] },
+      { ref: disc, base: isNarrow ? [-0.74, -1.38, -0.18] : [-1.55, -1.45, -0.3], radius: isNarrow ? 0.24 : 0.42, escape: [0, 1] },
+    ],
+    [isNarrow, leftSphere, oval, foregroundSphere, block, smallSphere, ring, accentOval, disc],
+  );
 
-    const progress = scrollProgress.current;
-    const paths = ribbonPaths.current
-      .map((path, index) => ({ path, definition: ribbonDefinitions[index] }))
-      .filter((entry): entry is { path: SVGPathElement; definition: (typeof ribbonDefinitions)[number] } => entry.path !== null);
+  useEffect(() => {
+    let cancelled = false;
+    const frame = requestAnimationFrame(() => {
+      const paths = ribbonPaths.current
+        .map((path, index) => ({ path, definition: ribbonDefinitions[index] }))
+        .filter((entry): entry is { path: SVGPathElement; definition: (typeof ribbonDefinitions)[number] } => entry.path !== null);
+      const regions: RibbonRegion[] = paths
+        .map(({ path, definition }) => ({ path, width: definition.width, points: sampleRibbon(path, 1) }))
+        .filter(({ points }) => points.length > 1);
 
-    const sampledRibbons = paths
-      .map(({ path, definition }) => ({
-        path,
-        width: definition.width,
-        points: sampleRibbon(path, progress),
-      }))
-      .filter(({ points }) => points.length > 1);
-
-    objects.forEach(({ ref, base, radius }) => {
-      const group = ref.current;
-      if (!group) return;
-
-      const baseWorld = new THREE.Vector3(...base);
-      const baseScreen = worldToScreen(baseWorld, camera, size);
-      const screenOffset = { x: 0, y: 0 };
-
-      sampledRibbons.forEach(({ path, width, points }) => {
-        let nearest = { closest: points[0], distance: Number.POSITIVE_INFINITY };
-
-        for (let index = 1; index < points.length; index += 1) {
-          const candidate = closestPointOnSegment(
-            { x: baseScreen.x + screenOffset.x, y: baseScreen.y + screenOffset.y },
-            points[index - 1],
-            points[index],
-          );
-          if (candidate.distance < nearest.distance) nearest = candidate;
-        }
-
-        const radiusScreenPoint = worldToScreen(
-          baseWorld.clone().add(new THREE.Vector3(radius, 0, 0)),
-          camera,
-          size,
-        );
-        const objectRadius = Math.hypot(
-          radiusScreenPoint.x - baseScreen.x,
-          radiusScreenPoint.y - baseScreen.y,
-        );
+      const nextPlans = objects.map(({ ref, base, radius, escape }) => {
+        const baseWorld = new THREE.Vector3(...base);
+        const baseScreen = worldToScreen(baseWorld, camera, size);
+        const radiusScreenPoint = worldToScreen(baseWorld.clone().add(new THREE.Vector3(radius, 0, 0)), camera, size);
+        const objectRadius = Math.hypot(radiusScreenPoint.x - baseScreen.x, radiusScreenPoint.y - baseScreen.y);
         const strokeScale = Math.max(size.width / viewBox.width, size.height / viewBox.height);
-        const requiredDistance = objectRadius * 1.15 + (width * strokeScale) / 2 + 14;
-        if (nearest.distance >= requiredDistance) return;
+        const margin = 14;
+        const intervals = regions
+          .map(({ points, width }) => collisionInterval(baseScreen, objectRadius * 1.15 + (width * strokeScale) / 2 + margin, points))
+          .filter((interval): interval is { start: number; end: number } => interval !== null);
 
-        let direction = {
-          x: baseScreen.x + screenOffset.x - nearest.closest.x,
-          y: baseScreen.y + screenOffset.y - nearest.closest.y,
-        };
-        let distance = Math.hypot(direction.x, direction.y);
-
-        if (distance < 1) {
-          const memory = sideMemory.current.get(group) ?? new Map<SVGPathElement, number>();
-          const tangent = points[Math.min(1, points.length - 1)];
-          const normal = { x: -(tangent.y - points[0].y), y: tangent.x - points[0].x };
-          const normalLength = Math.hypot(normal.x, normal.y) || 1;
-          const seed = Math.sin(base[0] * 12.9898 + base[1] * 78.233) >= 0 ? 1 : -1;
-          const side = memory.get(path) ?? seed;
-          memory.set(path, side);
-          sideMemory.current.set(group, memory);
-          direction = { x: (normal.x / normalLength) * side, y: (normal.y / normalLength) * side };
-          distance = 1;
+        if (intervals.length === 0) {
+          return { ref, base: baseWorld, safe: baseWorld.clone(), start: 1, settle: 1 };
         }
 
-        const clearance = requiredDistance - distance;
-        screenOffset.x += (direction.x / distance) * clearance;
-        screenOffset.y += (direction.y / distance) * clearance;
+        const firstStart = Math.max(0, Math.min(...intervals.map((interval) => interval.start)) - 0.045);
+        const safeScreen = findSafeScreenPosition(baseScreen, objectRadius, regions, escape, margin);
+        const safe = baseWorld.clone().add(screenToWorldOffset(baseWorld, {
+          x: safeScreen.x - baseScreen.x,
+          y: safeScreen.y - baseScreen.y,
+        }, camera, size));
+
+        return {
+          ref,
+          base: baseWorld,
+          safe,
+          start: firstStart,
+          settle: Math.min(1, firstStart + 0.12),
+        };
       });
 
-      const worldOffset = screenToWorldOffset(baseWorld, screenOffset, camera, size);
-      const target = baseWorld.add(worldOffset);
-      group.position.x += (target.x - group.position.x) * 0.18;
-      group.position.y += (target.y - group.position.y) * 0.18;
-      group.position.z += (target.z - group.position.z) * 0.18;
+      if (!cancelled) plans.current = nextPlans;
+    });
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(frame);
+    };
+  }, [camera, isNarrow, objects, ribbonPaths, size]);
+
+  useFrame(() => {
+    const progress = scrollProgress.current;
+    plans.current.forEach(({ ref, base, safe, start, settle }) => {
+      if (!ref.current) return;
+      const amount = start >= 1 ? 0 : smoothstep((progress - start) / Math.max(settle - start, 0.001));
+      ref.current.position.lerpVectors(base, safe, amount);
     });
   });
 
@@ -375,11 +410,11 @@ export default function Esfera3DCanvas() {
         });
       });
 
-      ScrollTrigger.create({
+      const trigger = ScrollTrigger.create({
         trigger: stage.current,
         start: "top top",
         end: () => `+=${Math.max(stage.current!.offsetHeight - window.innerHeight, 1)}`,
-        scrub: 0.8,
+        scrub: true,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           scrollProgress.current = self.progress;
@@ -389,7 +424,10 @@ export default function Esfera3DCanvas() {
         },
       });
 
-      requestAnimationFrame(() => ScrollTrigger.refresh());
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+        trigger.update();
+      });
     },
     { scope: stage },
   );
