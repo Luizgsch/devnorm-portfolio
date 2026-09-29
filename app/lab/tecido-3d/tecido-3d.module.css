@@ -1,0 +1,107 @@
+.stage {
+  position: relative;
+  min-height: 320svh;
+  overflow: hidden;
+  background: #050204;
+  color: #f4e8e9;
+}
+
+.canvasLayer {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background: #050204;
+}
+
+.canvas,
+.fallback {
+  display: block;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.fallback {
+  background: #050204;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 320svh;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.25rem, 5vw, 4rem);
+  pointer-events: none;
+}
+
+.hero {
+  display: grid;
+  max-width: 28rem;
+  gap: 1rem;
+  min-height: 100svh;
+  padding-top: clamp(2rem, 8vh, 6rem);
+}
+
+.eyebrow,
+.section span {
+  color: rgba(244, 232, 233, 0.58);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  align-self: center;
+  margin: 0;
+  font-size: clamp(5.8rem, 18vw, 15rem);
+  font-weight: 400;
+  letter-spacing: -0.09em;
+  line-height: 0.75;
+}
+
+.intro {
+  max-width: 19rem;
+  margin: 0;
+  color: rgba(244, 232, 233, 0.84);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.45;
+}
+
+.section {
+  display: grid;
+  align-content: center;
+  justify-items: end;
+  min-height: 100svh;
+  max-width: 28rem;
+  margin-left: auto;
+  text-align: right;
+}
+
+.section p {
+  max-width: 20rem;
+  margin: 0.75rem 0 0;
+  color: rgba(244, 232, 233, 0.84);
+  font-size: clamp(1.15rem, 2.2vw, 1.8rem);
+  letter-spacing: -0.04em;
+  line-height: 1.12;
+}
+
+@media (max-width: 700px) {
+  .content {
+    min-height: 320svh;
+    padding: 1.25rem;
+  }
+
+  .hero {
+    min-height: 100svh;
+  }
+
+  .section {
+    justify-items: start;
+    margin-left: 0;
+    text-align: left;
+  }
+}
