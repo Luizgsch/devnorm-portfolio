@@ -48,31 +48,31 @@ function SceneObjects() {
     <>
       {isNarrow ? (
         <>
-          <Sphere position={[-1.05, 1.25, -0.7]} scale={[0.94, 0.94, 0.94]} color="#f5e8dc" roughness={0.8} />
+          <Sphere position={[-1.05, 1.25, -0.7]} scale={[0.56, 0.56, 0.56]} color="#f5e8dc" roughness={0.8} />
           <Sphere
             position={[-0.38, 0.42, 0.12]}
-            scale={[0.88, 0.57, 0.57]}
+            scale={[0.53, 0.34, 0.34]}
             rotation={[0, 0, -0.3]}
             color="#e9e3df"
             roughness={0.74}
           />
-          <Sphere position={[0.12, -0.78, 0.95]} scale={[0.99, 0.99, 0.99]} color="#f1eee8" roughness={0.7} />
-          <RoundedBlock position={[0.82, 1.22, -0.16]} scale={[0.66, 0.62, 0.62]} rotation={[0.12, -0.18, 0.2]} />
-          <Sphere position={[0.78, -1.15, 0.55]} scale={[0.42, 0.42, 0.42]} color="#eccab8" roughness={0.77} />
+          <Sphere position={[0.12, -0.78, 0.95]} scale={[0.59, 0.59, 0.59]} color="#f1eee8" roughness={0.7} />
+          <RoundedBlock position={[0.82, 1.22, -0.16]} scale={[0.4, 0.37, 0.37]} rotation={[0.12, -0.18, 0.2]} />
+          <Sphere position={[0.78, -1.15, 0.55]} scale={[0.25, 0.25, 0.25]} color="#eccab8" roughness={0.77} />
         </>
       ) : (
         <>
-          <Sphere position={[-3.45, 0.72, -0.72]} scale={[1.56, 1.56, 1.56]} color="#f5e8dc" roughness={0.8} />
+          <Sphere position={[-3.45, 0.72, -0.72]} scale={[0.94, 0.94, 0.94]} color="#f5e8dc" roughness={0.8} />
           <Sphere
             position={[-1.62, 0.35, 0.08]}
-            scale={[1.44, 0.8, 0.8]}
+            scale={[0.86, 0.48, 0.48]}
             rotation={[0, 0, -0.3]}
             color="#e9e3df"
             roughness={0.74}
           />
-          <Sphere position={[0.28, -0.72, 0.95]} scale={[1.42, 1.42, 1.42]} color="#f1eee8" roughness={0.7} />
-          <RoundedBlock position={[2.48, 1.08, -0.14]} scale={[1.06, 1.01, 0.94]} rotation={[0.12, -0.18, 0.2]} />
-          <Sphere position={[2.28, -1.16, 0.58]} scale={[0.64, 0.64, 0.64]} color="#eccab8" roughness={0.77} />
+          <Sphere position={[0.28, -0.72, 0.95]} scale={[0.85, 0.85, 0.85]} color="#f1eee8" roughness={0.7} />
+          <RoundedBlock position={[2.48, 1.08, -0.14]} scale={[0.64, 0.61, 0.56]} rotation={[0.12, -0.18, 0.2]} />
+          <Sphere position={[2.28, -1.16, 0.58]} scale={[0.38, 0.38, 0.38]} color="#eccab8" roughness={0.77} />
         </>
       )}
     </>
