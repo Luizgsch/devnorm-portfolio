@@ -1,12 +1,13 @@
 .stage {
   position: relative;
-  min-height: 100svh;
+  min-height: 300svh;
   overflow: hidden;
   background: #f2dfd1;
 }
 
 .canvasLayer {
-  position: absolute;
+  position: fixed;
+  z-index: 0;
   inset: 0;
 }
 
@@ -21,8 +22,35 @@
   background: #f2dfd1;
 }
 
+.ribbonLayer {
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ribbonSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.ribbonPathDesktop,
+.ribbonPathMobile {
+  stroke: #a64f4e;
+  stroke-width: 76;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ribbonPathMobile {
+  display: none;
+}
+
 .label {
   position: absolute;
+  z-index: 2;
   top: clamp(1.25rem, 4vw, 3rem);
   left: clamp(1.25rem, 4vw, 3rem);
   margin: 0;
@@ -35,6 +63,15 @@
 }
 
 @media (max-width: 700px) {
+  .ribbonPathDesktop {
+    display: none;
+  }
+
+  .ribbonPathMobile {
+    display: block;
+    stroke-width: 42;
+  }
+
   .label {
     top: 1.25rem;
     left: 1.25rem;
