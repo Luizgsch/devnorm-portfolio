@@ -1,0 +1,46 @@
+.page { background: #4e0007; }
+.opening { padding: 60px 7% 110px; overflow: hidden; background: radial-gradient(circle at 45% 60%, #7f0711, #4e0007 80%); }
+.titleBlock { position: relative; }
+.titleBlock h1 { position: relative; z-index: 1; font-family: var(--font-condensed), sans-serif; font-size: clamp(78px, 12vw, 180px); font-weight: 600; line-height: .87; letter-spacing: -.03em; text-transform: uppercase; }
+.titleBlock h1 em { color: #f2e9dc; font-style: normal; }
+.seal { position: absolute; right: 4%; top: 24%; padding: 12px 30px; border: 1px solid #f2e9dc; border-radius: 999px; font-size: 20px; transform: rotate(-9deg); }
+.portraitBlock { position: relative; display: flow-root; margin-top: 76px; }
+.outlineWord { position: absolute; right: -4%; top: 0; font: 600 clamp(160px, 29vw, 440px)/1 var(--font-condensed), sans-serif; color: transparent; -webkit-text-stroke: 1px #b35d62; pointer-events: none; }
+.portrait { position: relative; float: right; width: 34%; margin: 0 0 32px 52px; }
+.portrait::before { content: ""; position: absolute; inset: -18px 18px 58px -18px; border: 1px solid #f2d7d3; pointer-events: none; }
+.portrait img { position: relative; display: block; width: 100%; height: auto; border: 2px solid #100d0e; }
+.portrait figcaption { display: block; margin-top: 22px; font-size: 13px; line-height: 1.6; }
+.portrait figcaption span { display: block; color: #f2d7d3; font-size: 12px; }
+.intro { position: relative; padding-top: 100px; max-width: 17ch; font: 450 clamp(30px, 3.3vw, 48px)/1.2 var(--font-editorial), serif; letter-spacing: -.025em; }
+.story { display: grid; grid-template-columns: 1fr 2fr; gap: 12%; padding: 120px 7%; background: #100d0e; }
+.storyMargin h2 { font: 450 clamp(38px, 4vw, 58px)/1.12 var(--font-editorial), serif; letter-spacing: -.025em; }
+.storyMargin p { margin-top: 18px; color: #c4b6aa; font-size: 13px; }
+.ornament { width: 100px; height: 100px; margin-top: 48px; stroke: #c8ae7f; stroke-width: 1; }
+.prose { min-width: 0; font-size: clamp(18px, 1.5vw, 22px); line-height: 1.85; color: #f2d7d3; }
+.prose > p:first-child::first-letter { float: left; padding: 10px 12px 0 0; font: 500 86px/.8 var(--font-hero), serif; color: #f2e9dc; }
+.prose p + p { margin-top: 28px; }
+.prose > p { text-align: justify; hyphens: auto; }
+.prose blockquote { margin: 48px 0; padding: 32px 0; border-top: 1px solid #4c393d; border-bottom: 1px solid #4c393d; font: 450 clamp(28px, 3vw, 42px)/1.25 var(--font-editorial), serif; color: #d598a0; letter-spacing: -.02em; }
+.signature { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-top: 48px; }
+.signature span:first-child { font: 450 30px/1.2 var(--font-hero), serif; }
+.signature span:last-child { font-size: 12px; color: #c4b6aa; }
+.closing { padding: 90px 7% 100px; background: #641426; }
+.closing h2 { max-width: 20ch; font: 450 clamp(40px, 5vw, 72px)/1.1 var(--font-editorial), serif; letter-spacing: -.025em; }
+.page .back { margin: 0 0 36px; }
+@media (max-width: 700px) {
+  .opening { padding: 54px 24px 64px; }
+  .titleBlock h1 { font-size: clamp(60px, 15vw, 100px); }
+  .seal { top: -24px; right: 0; padding: 5px 14px; font-size: 13px; }
+  .portraitBlock { margin-top: 60px; }
+  .portrait { width: 42%; margin: 0 0 24px 24px; }
+  .portrait::before { inset: -8px 8px 80px -8px; }
+  .outlineWord { top: auto; bottom: -20px; right: -8px; font-size: 42vw; }
+  .intro { padding-top: 0; max-width: 20ch; font-size: 30px; }
+  .story { grid-template-columns: 1fr; gap: 42px; padding: 64px 24px; }
+  .storyMargin { position: relative; }
+  .storyMargin h2 { font-size: 40px; }
+  .ornament { position: absolute; top: 0; right: 0; margin-top: 0; width: 74px; height: 74px; }
+  .prose { font-size: 18px; }
+  .closing { padding: 64px 24px; }
+  .page .back { display: flex; width: fit-content; margin: 0 0 28px; }
+}

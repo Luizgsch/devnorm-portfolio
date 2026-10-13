@@ -1,0 +1,33 @@
+.section { position: relative; padding: 88px 7%; background: #100d0e; color: #f2e9dc; }
+.heading { display: grid; grid-template-columns: 1.2fr 1fr; gap: 8%; align-items: end; margin-bottom: 40px; }
+.heading h2 { font-family: var(--font-condensed), sans-serif; font-size: clamp(48px, 5.6vw, 80px); font-weight: 600; line-height: 1; letter-spacing: -.025em; text-transform: uppercase; }
+.heading h2 span { color: #d598a0; }
+.heading > p { margin: 0; color: #d6c4bd; font-size: 17px; line-height: 1.7; max-width: 48ch; }
+.grid { display: grid; grid-template-columns: 1fr; }
+.card { min-width: 0; display: grid; grid-template-columns: 1fr 1.4fr .85fr; grid-template-areas: "name description price"; align-items: center; gap: 32px; padding: 28px 0; border-top: 1px solid #67444c; }
+.card:last-child { border-bottom: 1px solid #67444c; }
+.card h3 { grid-area: name; margin: 0; font-family: var(--font-editorial), serif; font-weight: 450; font-size: clamp(26px, 2.3vw, 34px); line-height: 1.2; letter-spacing: -.02em; }
+.card .price { grid-area: price; margin: 0; justify-self: end; font-variant-numeric: tabular-nums; color: #f2e9dc; white-space: nowrap; }
+.priceLabel { display: block; margin-bottom: 6px; color: #d598a0; font-size: 15px; line-height: 1.4; }
+.price strong { display: block; font-family: var(--font-condensed), sans-serif; font-size: clamp(40px, 4vw, 58px); font-weight: 600; line-height: 1; letter-spacing: -.015em; }
+.card .description { grid-area: description; margin: 0; color: #d6c4bd; font-size: 17px; line-height: 1.65; max-width: 60ch; }
+.footer { display: grid; grid-template-columns: 1.4fr 1fr; gap: 8%; margin-top: 32px; align-items: start; }
+.footer .scope { color: #d6c4bd; margin: 0; font-size: 17px; line-height: 1.75; max-width: 70ch; }
+.footer .contact > p { margin: 0 0 20px; font-family: var(--font-editorial), serif; font-size: 30px; font-weight: 450; line-height: 1.35; }
+.button { display: inline-flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 56px; padding: 14px 24px; background: #800020; border: 1px solid #b67686; color: #f2e9dc; font-size: 16px; line-height: 1.5; text-decoration: none; }
+.button:hover { background: #941c39; text-decoration: none !important; }
+.button:focus-visible { outline: 2px solid #c8ae7f; outline-offset: 5px; }
+@media (max-width: 1100px) { .section { padding: 72px 5%; } .card { gap: 24px; grid-template-columns: 1fr 1.2fr .85fr; } }
+@media (max-width: 899px) {
+  .section { padding: 64px 24px; }
+  .heading { grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
+  .heading h2 { font-size: clamp(44px, 9vw, 64px); }
+  .heading > p { max-width: 60ch; }
+  .card { grid-template-columns: 1.2fr 1fr; grid-template-areas: "name price" "description description"; gap: 20px 16px; padding: 28px 0; }
+  .card h3 { font-size: 28px; }
+  .price strong { font-size: 40px; }
+  .footer { grid-template-columns: 1fr; gap: 28px; margin-top: 28px; }
+  .footer .contact { order: -1; }
+  .footer .contact > p { font-size: 28px; max-width: 30ch; }
+}
+@media (max-width: 399px) { .card h3 { font-size: 25px; } .price strong { font-size: 34px; } }
