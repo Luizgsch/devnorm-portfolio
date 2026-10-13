@@ -1,0 +1,12 @@
+.preloader { display: none; position: fixed; inset: 0; z-index: 1000; background: #100d0e; color: #f2e9dc; place-items: center; opacity: 1; transition: opacity 220ms ease-out; }
+html[data-preload='loading'] .preloader, html[data-preload='exiting'] .preloader { display: grid; }
+html[data-preload='loading'], html[data-preload='exiting'], html[data-preload='loading'] body, html[data-preload='exiting'] body { overflow: hidden; }
+html[data-preload='loading'] .siteContent { visibility: hidden; }
+html[data-preload='exiting'] .preloader { opacity: 0; pointer-events: none; }
+.preloaderComposition { width: min(320px, 76vw); text-align: center; }
+.preloaderBrand { font-family: var(--font-hero), Georgia, serif; font-size: clamp(42px, 10vw, 58px); font-weight: 500; letter-spacing: -.025em; line-height: 1.1; margin-bottom: 40px; }
+.preloaderBrand span { color: #a32d45; }
+.preloaderTrack { height: 2px; background: #3a252c; overflow: hidden; }
+.preloaderFill { height: 100%; background: #a32d45; transform-origin: left; transition: transform 600ms ease-out; }
+html[data-font-fallback='true'] .siteContent { --font-hero: Georgia, serif; --font-sans: Arial, sans-serif; }
+@media (prefers-reduced-motion: reduce) { .preloader, .preloaderFill { transition: none; } }
