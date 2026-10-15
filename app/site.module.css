@@ -81,20 +81,20 @@
 .workIntro h2 { font-family: var(--font-condensed), sans-serif; font-size: clamp(110px, 18vw, 260px); font-weight: 600; line-height: .8; letter-spacing: -.03em; text-transform: uppercase; }
 .workIntro p { color: var(--muted); font-size: 13px; }
 .workIntro > span { color: var(--gold); font-variant-numeric: tabular-nums; font-size: 13px; }
-.project { display: grid; position: sticky; top: 0; isolation: isolate; overflow: hidden; grid-template-columns: 1fr minmax(0, 1.8fr) 1fr; grid-template-rows: auto 1fr; gap: 24px 6%; height: 100svh; min-height: 760px; padding: 48px 7% 90px; }
+.project { display: grid; position: sticky; top: 0; isolation: isolate; overflow: hidden; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto minmax(0, 1fr) auto; gap: 20px 24px; height: 100svh; min-height: 760px; padding: 32px 5% 40px; }
 .projectBackdrop { position: absolute; inset: -45px; background-position: center; background-size: cover; filter: blur(24px); z-index: -3; }
 .projectWash { position: absolute; inset: 0; z-index: -2; background: rgb(13 9 12 / 73%); }
-.projectNumber { display: flex; align-items: baseline; gap: 8px; grid-row: 2; grid-column: 1; align-self: center; font-size: 13px; font-variant-numeric: tabular-nums; }
+.projectNumber { display: flex; align-items: baseline; gap: 8px; grid-row: 1; grid-column: 1; align-self: center; font-size: 13px; font-variant-numeric: tabular-nums; }
 .projectNumber strong { font-family: var(--font-editorial), serif; font-size: 44px; font-weight: 450; }
-.projectImage { display: block; position: relative; grid-column: 2; grid-row: 2; width: 90%; justify-self: center; align-self: center; box-shadow: 0 32px 70px rgb(0 0 0 / 24%); }
-.projectImage img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.projectImage { display: block; position: relative; grid-column: 1 / -1; grid-row: 2; width: min(100%, calc((100svh - 240px) * 16 / 9)); justify-self: center; align-self: center; box-shadow: 0 32px 70px rgb(0 0 0 / 24%); }
+.projectImage img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; }
 .imageAction { position: absolute; right: 18px; bottom: 18px; display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--paper); color: var(--ink); }
 .imageAction span { font-size: 12px; }
 .projectImage:hover .imageAction { background: #fff9f0; }
 .projectInfo { display: contents; }
-.projectInfo h3 { grid-column: 1 / -1; grid-row: 1; text-align: center; font-family: var(--font-editorial), serif; font-size: clamp(44px, 5.7vw, 82px); font-weight: 450; line-height: 1.15; letter-spacing: -.03em; }
-.projectInfo p { grid-column: 3; grid-row: 2; align-self: center; margin-bottom: 65px; font-size: 13px; color: var(--muted); }
-.projectInfo > a { grid-column: 3; grid-row: 2; align-self: center; justify-self: start; display: inline-flex; align-items: center; gap: 22px; min-height: 44px; margin-top: 50px; font-size: 13px; border-bottom: 1px solid #a58c7d; }
+.projectInfo h3 { grid-column: 2; grid-row: 1; text-align: center; font-family: var(--font-editorial), serif; font-size: clamp(44px, 5.7vw, 82px); font-weight: 450; line-height: 1.15; letter-spacing: -.03em; }
+.projectInfo p { grid-column: 1 / 3; grid-row: 3; align-self: center; margin: 0; max-width: 65ch; font-size: 13px; color: var(--muted); }
+.projectInfo > a { grid-column: 3; grid-row: 3; align-self: center; justify-self: end; display: inline-flex; align-items: center; gap: 22px; min-height: 44px; margin-top: 0; font-size: 13px; border-bottom: 1px solid #a58c7d; }
 .projectNote { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 12px; color: var(--muted); }
 .moreProjects { position: relative; z-index: 4; display: grid; place-items: center; min-height: clamp(260px, 38svh, 420px); padding: 72px 24px; background: #641426; }
 .moreProjects a { display: inline-flex; align-items: center; justify-content: space-between; gap: 30px; min-height: 64px; padding: 16px 24px; border: 1px solid var(--paper); border-radius: 999px; font-size: 15px; font-weight: 600; }
@@ -171,17 +171,22 @@
 .detailTitle h1 { font-family: var(--font-editorial), serif; font-size: clamp(48px, 6vw, 86px); line-height: 1.1; font-weight: 450; letter-spacing: -.035em; }
 .detailTitle > span { color: var(--gold); font-variant-numeric: tabular-nums; font-size: 14px; }
 .detailLead { margin-top: 28px !important; color: var(--muted); max-width: 65ch; font-size: 15px; }
-.detailImage { padding: 0 7%; }
-.detailImage img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 8; object-fit: cover; }
-.detailImage figcaption { color: var(--muted); font-size: 12px; margin-top: 15px; }
-.detailImage { margin: 0; }
-.detailBody { padding: 70px 7% 100px; display: grid; grid-template-columns: 1fr 2fr; gap: 12%; }
-.detailBody > div h2 { font-family: var(--font-editorial), serif; font-size: 38px; font-weight: 450; line-height: 1.2; }
-.detailBody > div > p { color: var(--muted); font-size: 14px; margin-top: 20px; }
-.projectFacts { margin: 0; }
-.projectFacts > div { border-top: 1px solid var(--line); padding: 24px 0; }
-.projectFacts dt { font-size: 14px; font-weight: 600; }
-.projectFacts dd { margin: 10px 0 0; font-size: 15px; color: var(--muted); max-width: 70ch; }
+.detailBody { padding: 80px 7% 100px; }
+.detailStoryHeading { max-width: 900px; margin: 0 auto 48px; }
+.detailStoryHeading h2 { font-family: var(--font-editorial), serif; font-size: clamp(38px, 4vw, 56px); font-weight: 450; line-height: 1.2; }
+.detailStoryHeading > p { color: var(--muted); font-size: 17px; margin-top: 20px; line-height: 1.7; }
+.projectStory { max-width: 900px; margin: 0 auto; }
+.storyBlock { padding: 36px 0; border-top: 1px solid var(--line); }
+.storyBlock h3 { font-family: var(--font-editorial), serif; font-size: 30px; font-weight: 450; line-height: 1.3; margin-bottom: 20px; }
+.storyBlock p { max-width: 75ch; font-size: 18px; line-height: 1.85; color: var(--paper); }
+.storyBlock p + p { margin-top: 22px; }
+.storyList { margin: 24px 0 0; padding-left: 24px; }
+.storyList li { padding-left: 8px; }
+.storyList li + li { margin-top: 24px; }
+.storyList li::marker { color: var(--gold); }
+.storyList strong { font-weight: 600; }
+.storyBlock .storyConclusion { margin-top: 24px; }
+.storyBlock .storyPending { color: var(--muted); font-size: 17px; }
 .detailNext { background: #390b16; padding: 50px 7%; display: flex; justify-content: space-between; gap: 30px; align-items: center; }
 .detailNext span { font-size: 13px; color: #dbbac2; }
 .detailNext a { display: flex; gap: 24px; align-items: center; font-family: var(--font-editorial), serif; font-size: 36px; line-height: 1.2; }
@@ -224,8 +229,9 @@
   .heroCopy { position: relative; z-index: 1; inset: auto; margin-top: 48px; text-align: center; }
   .heroCopy h1 { font-size: clamp(56px, 13vw, 82px); line-height: .9; }
   .heroCopy h1 > span { display: block; }
-  .film { position: relative; inset: auto; z-index: 0; order: 1; flex: 0 0 auto; margin: clamp(-160px, -26vw, -100px) -24px 0; height: min(95.04svh, 139.92vw); min-height: 0; overflow: hidden; background: #4e0007 url('/media/xadrez-poster.webp?v=1fde26815e47') center / cover no-repeat; }
-  .film video { position: absolute; inset: 0; object-fit: cover; object-position: center; }
+  .film { position: relative; inset: auto; z-index: 0; order: 1; flex: 0 0 auto; margin: calc(clamp(-200px, -34vw, -132px) - 32px) -24px 0; height: min(95.04svh, 139.92vw); min-height: 0; overflow: hidden; background: #4e0007 url('/media/xadrez-poster.webp?v=1fde26815e47') center / cover no-repeat; }
+  .film { background-size: auto 115%; }
+  .film video { position: absolute; inset: 0; object-fit: cover; object-position: center; transform: scale(1.15); transform-origin: center; }
   .filmControl { display: none; }
   .primaryAction, .textAction { min-height: 52px; font-size: 13px; }
   .textAction { padding: 12px 0; }
@@ -246,7 +252,7 @@
   .project { height: 100svh; min-height: 690px; padding: 38px 24px 78px; grid-template-columns: 1fr; grid-template-rows: auto; gap: 24px; }
   .projectNumber { grid-row: 1; grid-column: 1; align-self: auto; font-size: 12px; }
   .projectNumber strong { font-family: var(--font-sans), sans-serif; font-size: 12px; }
-  .projectImage { grid-row: 2; grid-column: 1; width: 88%; }
+  .projectImage { grid-row: 2; grid-column: 1; width: 100%; }
   .projectInfo { display: block; grid-row: 3; grid-column: 1; }
   .projectInfo h3 { text-align: left; font-size: 38px; }
   .projectInfo p { margin: 10px 0 0; font-size: 12px; }
@@ -278,10 +284,9 @@
   .detailTitle h1 { font-size: clamp(40px, 10vw, 58px); }
   .detailTitle > span { margin-top: 9px; }
   .detailLead { font-size: 14px; }
-  .detailImage { padding: 0 24px; }
-  .detailImage img { aspect-ratio: 1; }
-  .detailBody { padding: 45px 24px 65px; grid-template-columns: 1fr; gap: 35px; }
-  .detailBody > div h2 { font-size: 33px; }
+  .detailBody { padding: 48px 24px 65px; }
+  .detailStoryHeading { margin-bottom: 32px; }
+  .storyBlock { padding: 28px 0; }
   .detailNext { padding: 35px 24px; flex-direction: column; align-items: flex-start; gap: 20px; }
   .detailNext a { font-size: 30px; }
   .reading { padding: 40px 24px 70px; }

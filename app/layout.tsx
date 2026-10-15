@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: { default: "dev_norm — Luiz Schreiner | Sites, sistemas e automações", template: "%s | dev_norm" },
   description: "Luiz Schreiner, desenvolvedor de software. Sites, sistemas e automações para dar presença digital, organizar processos e facilitar o atendimento.",
   applicationName: "dev_norm",
-  icons: { icon: "/icon.svg" },
+  icons: { icon: "/icon.png" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
