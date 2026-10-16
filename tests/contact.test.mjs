@@ -25,10 +25,14 @@ const input = { name: 'Pessoa de teste', method: 'email', contact: 'test@example
 const config = () => ({ apiKey: 'fake-key-for-mocks', from: 'sender@example.invalid', to: 'recipient@example.invalid' });
 const request = (body = input, headers = {}) => new Request('http://localhost:3000/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: 'http://localhost:3000', ...headers }, body: typeof body === 'string' ? body : JSON.stringify(body) });
 
-test('rejeita contato inválido, demanda desconhecida, mensagem curta e honeypot', () => {
+test('rejeita contato inválido, demanda desconhecida, mensagem vazia e honeypot', () => {
   assert.equal(validateContact(input).valid, true);
-  for (const invalid of [{ contact: 'not-an-email' }, { demand: 'inventado' }, { description: 'curta' }, { website: 'spam' }, { name: 'nome\ninjetado' }, { method: 'whatsapp', contact: 'abc123' }]) assert.equal(validateContact({ ...input, ...invalid }).valid, false);
+  for (const invalid of [{ contact: 'not-an-email' }, { demand: 'inventado' }, { description: '' }, { description: '   ' }, { website: 'spam' }, { name: 'nome\ninjetado' }, { method: 'whatsapp', contact: 'abc123' }]) assert.equal(validateContact({ ...input, ...invalid }).valid, false);
   assert.equal(validateContact({ ...input, method: 'whatsapp', contact: '+55 (11) 99999-9999' }).valid, true);
+});
+
+test('aceita descricao com um caractere', () => {
+  assert.equal(validateContact({ ...input, description: 'a' }).valid, true);
 });
 
 test('sem credenciais não envia nem retorna sucesso', async () => {

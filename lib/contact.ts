@@ -20,7 +20,7 @@ export function validateContact(input: unknown): { data: ContactData; errors: Co
   if (data.method === "email" && (data.contact.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.contact))) errors.contact = "Informe um e-mail válido, como nome@empresa.com.";
   if (data.method === "whatsapp" && (!/^[+\d\s().-]+$/.test(data.contact) || !/^\d{10,15}$/.test(data.contact.replace(/\D/g, "")) || data.contact.length > 30)) errors.contact = "Informe o número com DDD e, se necessário, código do país.";
   if (!demandOptions.some((option) => option.value === data.demand)) errors.demand = "Selecione o tipo de demanda.";
-  if (data.description.length < 20 || data.description.length > 5000) errors.description = "Descreva sua necessidade em 20 a 5.000 caracteres.";
+  if (data.description.length < 1 || data.description.length > 5000) errors.description = "Descreva sua necessidade em 1 a 5.000 caracteres.";
   if (data.website) errors.website = "Não foi possível validar a solicitação.";
   return { data, errors, valid: Object.keys(errors).length === 0 };
 }
