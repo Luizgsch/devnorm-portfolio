@@ -67,6 +67,7 @@ export const projects: Project[] = [
     motivation: "Percebi que a dependência de planilhas manuais e o tempo gasto em tarefas repetitivas eram uma dor universal no mercado, travando o potencial estratégico de grandes empresas. A motivação para criar este projeto foi transformar essa realidade: utilizar a tecnologia para eliminar o retrabalho, evitar falhas humanas e devolver tempo para que as pessoas possam focar no que realmente importa — a gestão estratégica e o cuidado com o fator humano.",
     development: "Foi desenvolvida a interface de usuário (Front-end) e a arquitetura do produto, integrando quatro vertentes operacionais essenciais:",
     technologies: ["React", "Tailwind CSS", "Lucide React", "JSON Mocks"],
+    challenges: "O maior desafio foi reunir muitas informações em um sistema fácil de usar. Organizei as telas para deixar o essencial mais claro e criei uma conferência entre os dados de estacionamento e vale-transporte para ajudar a identificar possíveis erros. Também preparei a entrada dos dados das planilhas que já eram usadas, para facilitar a mudança sem atrapalhar a rotina da equipe.",
     learnings: "O projeto resultou em uma proposta de software robusta, validada contra mais de 50 gargalos operacionais reais da empresa. Como principal aprendizado, compreendi que o papel do desenvolvedor moderno vai além de escrever código: é preciso entender profundamente os processos de negócios da empresa e criar tecnologias que se adaptem ao fluxo real das pessoas, unindo eficiência operacional a uma experiência humana e gratificante.",
     storyItems: {
       development: [
@@ -80,11 +81,6 @@ export const projects: Project[] = [
         { title: "Tailwind CSS", text: "Estilização ágil baseada em utilitários, garantindo um design responsivo e temas customizados." },
         { title: "Lucide React", text: "Biblioteca de iconografia limpa para reforçar a hierarquia visual." },
         { title: "JSON Mocks", text: "Estrutura de dados simulados para reproduzir o comportamento dinâmico de um ambiente de produção real." },
-      ],
-      challenges: [
-        { title: "Desafio 1", text: "Complexidade e densidade de dados nas telas.", solution: "Adotei o layout Bento Box, organizando informações densas em blocos visuais intuitivos com hierarquia clara e Dark Mode, reduzindo o cansaço visual e facilitando tomadas de decisão rápidas." },
-        { title: "Desafio 2", text: "Auditoria e controle financeiro de benefícios (VT vs. Estacionamento).", solution: "Projetei um fluxo de check-in simplificado na portaria por número de crachá que cruza dados em tempo real e dispara alertas visuais imediatos ao identificar o uso do pátio por colaboradores que possuem Vale Transporte ativo." },
-        { title: "Desafio 3", text: "Transição suave do modelo antigo (Excel) para o novo.", solution: "Desenvolvi a solução com suporte à ingestão de dados das planilhas que a empresa já utilizava, garantindo facilidade de migração sem interromper a rotina diária." },
       ],
     },
   },
