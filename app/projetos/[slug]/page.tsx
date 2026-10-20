@@ -22,12 +22,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const next = projects[(index + 1) % projects.length];
   return <div className={styles.site} id="inicio"><a className={styles.skipLink} href="#ficha">Pular para a ficha do projeto</a><Header /><main>
     <section className={styles.detailHero}><Link className={styles.breadcrumb} href="/#projetos"><Arrow />Todos os projetos</Link><div className={styles.detailTitle}><h1>{project.name}</h1><span>{project.number} / 03</span></div>
+
+    </section>
+    <ProjectGallery name={project.name} images={project.images} />
       <nav className={styles.projectLinks} aria-label="Links do projeto">
         <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">Ver projeto online <Arrow /></a>
         <a href={project.repositoryUrl} target="_blank" rel="noopener noreferrer">Ver repositório <Arrow /></a>
       </nav>
-    </section>
-    <ProjectGallery name={project.name} images={project.images} />
     <section className={styles.detailBody} id="ficha" aria-labelledby="project-story-title">
       <header className={styles.detailStoryHeading}>
         <h2 id="project-story-title">O projeto,<br /><em>em detalhe.</em></h2>

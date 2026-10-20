@@ -81,7 +81,7 @@
 .workIntro h2 { font-family: var(--font-condensed), sans-serif; font-size: clamp(110px, 18vw, 260px); font-weight: 600; line-height: .8; letter-spacing: -.03em; text-transform: uppercase; }
 .workIntro p { color: var(--muted); font-size: 13px; }
 .workIntro > span { color: var(--gold); font-variant-numeric: tabular-nums; font-size: 13px; }
-.project { display: grid; position: sticky; top: 0; isolation: isolate; overflow: hidden; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto minmax(0, 1fr) auto; gap: 20px 24px; height: 100svh; min-height: 760px; padding: 32px 5% 40px; }
+.project { display: grid; position: sticky; top: min(0px, calc(100svh - 760px)); isolation: isolate; overflow: hidden; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto minmax(0, 1fr) auto; gap: 20px 24px; height: 100svh; min-height: 760px; padding: 32px 5% 40px; }
 .projectBackdrop { position: absolute; inset: -45px; background-position: center; background-size: cover; filter: blur(24px); z-index: -3; }
 .projectWash { position: absolute; inset: 0; z-index: -2; background: rgb(13 9 12 / 73%); }
 .projectNumber { display: flex; align-items: baseline; gap: 8px; grid-row: 1; grid-column: 1; align-self: center; font-size: 13px; font-variant-numeric: tabular-nums; }
@@ -211,7 +211,7 @@
   .about { padding-top: clamp(32px, 5svh, 64px); padding-bottom: clamp(32px, 5svh, 64px); }
   .aboutMain { gap: 6%; }
   .aboutBody { font-size: 18px; }
-  .project { padding-left: 5%; padding-right: 5%; gap: 24px 4%; min-height: 780px; }
+  .project { top: min(0px, calc(100svh - 780px)); padding-left: 5%; padding-right: 5%; gap: 24px 4%; min-height: 780px; }
   .projectInfo h3 { font-size: 58px; }
   .projectInfo > a { gap: 10px; font-size: 12px; }
   .technologies, .contact { gap: 7%; grid-template-columns: 1fr 1.25fr; }
@@ -248,7 +248,7 @@
   .workIntro > span { grid-row: 1; grid-column: 2; font-size: 12px; }
   .workIntro { min-height: 100svh; }
   .workIntro h2 { font-size: clamp(62px, 18vw, 120px); }
-  .project { height: 100svh; min-height: 690px; padding: 38px 24px 78px; grid-template-columns: 1fr; grid-template-rows: auto; gap: 24px; }
+  .project { top: min(0px, calc(100svh - 690px)); height: 100svh; min-height: 690px; padding: 38px 24px 78px; grid-template-columns: 1fr; grid-template-rows: auto; gap: 24px; }
   .projectNumber { grid-row: 1; grid-column: 1; align-self: auto; font-size: 12px; }
   .projectNumber strong { font-family: var(--font-sans), sans-serif; font-size: 12px; }
   .projectImage { grid-row: 2; grid-column: 1; width: 100%; }
@@ -292,14 +292,16 @@
   .projectsIndex { min-height: 68svh; padding: 90px 24px; }
   .projectsIndex h1 { font-size: clamp(76px, 18vw, 120px); }
 }
-@media (prefers-reduced-motion: reduce), (max-height: 780px) {
+@media (prefers-reduced-motion: reduce) {
   .workIntro, .project { position: relative; top: auto; }
 }
 
 .heroCopy .heroSubtitle { margin: 24px 0 0; font-size: clamp(16px, 1.5vw, 22px); line-height: 1.5; color: var(--paper); }
 
-.projectLinks { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 28px; }
+.projectLinks { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 24px; padding: 0 7%; }
 .projectLinks a { display: inline-flex; align-items: center; justify-content: space-between; gap: 24px; padding: 14px 20px; min-height: 48px; border: 1px solid #b67686; color: var(--paper); font-size: 16px; }
 .projectLinks a:first-child { background: #800020; }
 .projectLinks a:hover { background: #941c39; text-decoration: none; }
 .projectLinks a:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+
+@media (max-width: 700px) { .projectLinks { padding: 0 24px; } }
