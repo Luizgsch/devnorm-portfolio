@@ -7,10 +7,7 @@
 .portraitBlock { position: relative; display: flow-root; margin-top: 76px; }
 .outlineWord { position: absolute; right: -4%; top: 0; font: 600 clamp(160px, 29vw, 440px)/1 var(--font-condensed), sans-serif; color: transparent; -webkit-text-stroke: 1px #b35d62; pointer-events: none; }
 .portrait { position: relative; float: right; width: 34%; margin: 0 0 32px 52px; }
-.portrait::before { content: ""; position: absolute; inset: -18px 18px 58px -18px; border: 1px solid #f2d7d3; pointer-events: none; }
-.portrait img { position: relative; display: block; width: 100%; height: auto; border: 2px solid #100d0e; }
-.portrait figcaption { display: block; margin-top: 22px; font-size: 13px; line-height: 1.6; }
-.portrait figcaption span { display: block; color: #f2d7d3; font-size: 12px; }
+.portrait img { position: relative; display: block; width: 100%; height: auto; }
 .intro { position: relative; padding-top: 100px; max-width: 17ch; font: 450 clamp(30px, 3.3vw, 48px)/1.2 var(--font-editorial), serif; letter-spacing: -.025em; }
 .story { display: grid; grid-template-columns: 1fr 2fr; gap: 12%; padding: 120px 7%; background: #100d0e; }
 .storyMargin h2 { font: 450 clamp(38px, 4vw, 58px)/1.12 var(--font-editorial), serif; letter-spacing: -.025em; }
@@ -33,7 +30,6 @@
   .seal { top: -24px; right: 0; padding: 5px 14px; font-size: 13px; }
   .portraitBlock { margin-top: 60px; }
   .portrait { width: 42%; margin: 0 0 24px 24px; }
-  .portrait::before { inset: -8px 8px 80px -8px; }
   .outlineWord { top: auto; bottom: -20px; right: -8px; font-size: 42vw; }
   .intro { padding-top: 0; max-width: 20ch; font-size: 30px; }
   .story { grid-template-columns: 1fr; gap: 42px; padding: 64px 24px; }

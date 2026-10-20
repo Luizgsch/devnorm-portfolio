@@ -58,7 +58,8 @@ export default function HeroAboutTransition({ children }: { children: ReactNode 
       draw();
     };
     const revealOnFocus = (event: FocusEvent) => {
-      if (!reduced.matches && event.target instanceof Node && about.contains(event.target)) {
+      // Touch focus must not move the link between pointer down and click.
+      if (!reduced.matches && event.target instanceof HTMLElement && event.target.matches(":focus-visible") && about.contains(event.target)) {
         window.scrollTo({ top: window.scrollY + root.getBoundingClientRect().top + travel });
         draw();
       }
