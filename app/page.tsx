@@ -25,7 +25,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ d
       <section className={styles.hero} aria-labelledby="hero-title">
         <Video filmClassName={styles.film} controlClassName={styles.filmControl} playOnMobile />
         <Header home />
-        <div className={styles.heroCopy}><h1 id="hero-title">Luiz <span>Schreiner</span></h1><p className={styles.heroSubtitle}>desenvolvedor - criador de sites</p></div>
+        <div className={styles.heroCopy}><h1 id="hero-title">Luiz <span>Schreiner</span></h1><p className={styles.heroSubtitle}>Desenvolvedor - criador de sites</p></div>
       </section>
 
       <section className={`${styles.section} ${styles.about}`} id="sobre" aria-labelledby="about-title">
