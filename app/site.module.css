@@ -170,7 +170,6 @@
 .detailTitle { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; }
 .detailTitle h1 { font-family: var(--font-editorial), serif; font-size: clamp(48px, 6vw, 86px); line-height: 1.1; font-weight: 450; letter-spacing: -.035em; }
 .detailTitle > span { color: var(--gold); font-variant-numeric: tabular-nums; font-size: 14px; }
-.detailLead { margin-top: 28px !important; color: var(--muted); max-width: 65ch; font-size: 15px; }
 .detailBody { padding: 80px 7% 100px; }
 .detailStoryHeading { max-width: 900px; margin: 0 auto 48px; }
 .detailStoryHeading h2 { font-family: var(--font-editorial), serif; font-size: clamp(38px, 4vw, 56px); font-weight: 450; line-height: 1.2; }
@@ -283,7 +282,6 @@
   .detailTitle { align-items: start; }
   .detailTitle h1 { font-size: clamp(40px, 10vw, 58px); }
   .detailTitle > span { margin-top: 9px; }
-  .detailLead { font-size: 14px; }
   .detailBody { padding: 48px 24px 65px; }
   .detailStoryHeading { margin-bottom: 32px; }
   .storyBlock { padding: 28px 0; }
