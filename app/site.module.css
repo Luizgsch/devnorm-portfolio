@@ -115,7 +115,6 @@
 .technologyGroup[open] .technologyPlus { display: none; }
 .technologyGroup ul { list-style: none; margin: 28px 0 10px; padding: 0; color: var(--muted); font-size: 18px; line-height: 1.5; }
 .technologyGroup li + li { margin-top: 14px; }
-.technologyGroup li > span { padding: 2px 6px; margin-left: -6px; background: #100d0e; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .technologyList > div { padding: 28px 0; border-top: 1px solid var(--line); }
 .technologyList > div:first-child { padding-top: 0; border: 0; }
 .technologyList > div:last-child { padding-bottom: 0; }
