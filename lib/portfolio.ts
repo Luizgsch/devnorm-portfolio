@@ -4,6 +4,8 @@ export type Project = {
   name: string;
   image: string;
   images: string[];
+  liveUrl: string;
+  repositoryUrl: string;
   imagePending: boolean;
   nature: string | null;
   context: string | null;
@@ -21,6 +23,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "rango-de-rua", number: "01", name: "Rango de Rua", image: "/media/ONG1.png",
+    liveUrl: "https://ong-rango-de-rua-9o7b.vercel.app/", repositoryUrl: "https://github.com/Luizgsch/ONG_RangoDeRua",
     images: [1, 2, 3, 4].map((number) => `/media/ONG${number}.png`), imagePending: false,
     nature: "Desenvolvedor Full Stack voluntário",
     context: "O Rango de Rua é uma plataforma web desenvolvida para apoiar a organização e gestão de voluntários de uma ONG. Trabalhei no projeto como desenvolvedor Full Stack voluntário, participando da construção da aplicação, da integração entre frontend e backend e da estruturação dos dados.\n\nA proposta era transformar um processo que poderia ser feito de forma dispersa ou manual em uma aplicação centralizada, facilitando o cadastro, a consulta e o gerenciamento das informações dos voluntários.",
@@ -45,6 +48,7 @@ export const projects: Project[] = [
   },
   {
     slug: "direito", number: "02", name: "Direito", image: "/media/Direito1.png",
+    liveUrl: "https://luizgsch.github.io/Direito/", repositoryUrl: "https://github.com/Luizgsch/Direito",
     images: [1, 2, 3, 4].map((number) => `/media/Direito${number}.png`), imagePending: false,
     nature: "Projeto demonstrativo para profissional fictício",
     context: "Site demonstrativo de advocacia voltado ao Direito de Família e Sucessões. Criado para um profissional fictício, apresenta como um advogado pode organizar sua presença digital com clareza e uma identidade visual sofisticada.",
@@ -57,6 +61,7 @@ export const projects: Project[] = [
   },
   {
     slug: "command-center", number: "03", name: "Command Center", image: "/media/Jornada1.png",
+    liveUrl: "https://luizgsch.github.io/Sistema_Jornada/", repositoryUrl: "https://github.com/Luizgsch/Sistema_Jornada",
     images: [1, 2, 3, 4].map((number) => `/media/Jornada${number}.png`), imagePending: false, nature: null,
     context: "O Posigraf — HR & Ops Core é uma plataforma integrada de gestão desenvolvida para centralizar, automatizar e modernizar a operação das áreas de Recursos Humanos (DHO), Logística/Serviços Gerais e Financeiro. O software atua como um Command Center inteligente, criado para substituir processos manuais e a dependência excessiva de planilhas de Excel pulverizadas por um ecossistema digital unificado, rápido e intuitivo.",
     motivation: "Percebi que a dependência de planilhas manuais e o tempo gasto em tarefas repetitivas eram uma dor universal no mercado, travando o potencial estratégico de grandes empresas. A motivação para criar este projeto foi transformar essa realidade: utilizar a tecnologia para eliminar o retrabalho, evitar falhas humanas e devolver tempo para que as pessoas possam focar no que realmente importa — a gestão estratégica e o cuidado com o fator humano.",

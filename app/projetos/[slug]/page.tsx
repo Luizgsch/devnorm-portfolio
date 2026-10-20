@@ -21,7 +21,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const project = projects[index];
   const next = projects[(index + 1) % projects.length];
   return <div className={styles.site} id="inicio"><a className={styles.skipLink} href="#ficha">Pular para a ficha do projeto</a><Header /><main>
-    <section className={styles.detailHero}><Link className={styles.breadcrumb} href="/#projetos"><Arrow />Todos os projetos</Link><div className={styles.detailTitle}><h1>{project.name}</h1><span>{project.number} / 03</span></div><p className={styles.detailLead}>{project.context ?? "Este espaço vai reunir o contexto, o desenvolvimento e as imagens do projeto. A ficha está em preparação; os campos abaixo indicam o conteúdo que falta completar."}</p></section>
+    <section className={styles.detailHero}><Link className={styles.breadcrumb} href="/#projetos"><Arrow />Todos os projetos</Link><div className={styles.detailTitle}><h1>{project.name}</h1><span>{project.number} / 03</span></div><p className={styles.detailLead}>{project.context ?? "Este espaço vai reunir o contexto, o desenvolvimento e as imagens do projeto. A ficha está em preparação; os campos abaixo indicam o conteúdo que falta completar."}</p>
+      <nav className={styles.projectLinks} aria-label="Links do projeto">
+        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">Ver projeto online <Arrow /></a>
+        <a href={project.repositoryUrl} target="_blank" rel="noopener noreferrer">Ver repositório <Arrow /></a>
+      </nav>
+    </section>
     <ProjectGallery name={project.name} images={project.images} />
     <section className={styles.detailBody} id="ficha" aria-labelledby="project-story-title">
       <header className={styles.detailStoryHeading}>
